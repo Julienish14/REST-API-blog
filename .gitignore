@@ -1,0 +1,55 @@
+# Node.js specific
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editor files
+.vscode/
+*.suo
+*.user
+*.sln
+.idea/
+
+# Test files
+coverage/
+*.spec.js
+*.test.js
+
+# Build artifacts
+build/
+dist/
+lib/
+
+# Temporary files
+*~
+*.tmp
+*.log
+
+# IDE-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Secrets
+secrets.json
+api_keys.json
+
+# Docker files
+Dockerfile*
+docker-compose.yml
+
+# Editor-specific files
+.eslintcache 
+.prettierignore
+
+# Generated files
+.pnp.* 
+
+# Editor-specific files
+.vscode/
