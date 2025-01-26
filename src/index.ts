@@ -24,7 +24,7 @@ server.listen(8080, () => {
   console.log('Server is running on http://localhost:8080/');
 });
 
-const MONGO_URL = 'mongodb+srv://julish:julish@cluster0.2urtb.mongodb.net/';
+const MONGO_URL = process.env.MONGODB;
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
