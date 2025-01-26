@@ -30,22 +30,3 @@ const MONGO_URL = process.env.DB_CONN;
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on('error', (error: Error) => console.log(error));
-
-server.listen(8080, () => {
-  console.log('Server is running on http://localhost:8080/');
-});
-
-const MONGO_URL = process.env.DB_CONN;
-
-mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
-mongoose.connection.on('error', (error: Error) => console.log(error));
-server.listen(8080, () => {
-  console.log('Server is running on http://localhost:8080/');
-});
-
-const MONGO_URL = process.env.DB_CONN;
-
-mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
-mongoose.connection.on('error', (error: Error) => console.log(error));
