@@ -28,5 +28,12 @@ server.listen(8080, () => {
 const MONGO_URL = process.env.DB_CONN;
 
 mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
-mongoose.connection.on('error', (error: Error) => console.log(error));
+
+mongoose
+  .connect(MONGO_URL)
+  .then(() => {
+    console.log('✅ Connected to MongoDB!');
+  })
+  .catch((error: Error) => {
+    console.log('❌ MongoDB connection error:', error);
+  });
