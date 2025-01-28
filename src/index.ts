@@ -39,4 +39,7 @@ mongoose
     console.log('❌ MongoDB connection error:', error);
   });
 
-app.use('/', router());
+app.use('/api/v1/', router());
+app.get('/', (req, res) => {
+  res.send('Welcome to blog API');
+});
