@@ -6,8 +6,6 @@
     "outDir": "dist",
     "sourceMap": true,
     "noImplicitAny": true
-    // "strict": true,
-    // "strictFunctionTypes": false
   },
   "include": ["src/**/*"]
 }

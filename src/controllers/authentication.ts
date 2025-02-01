@@ -4,8 +4,7 @@ import { authentication, random } from '../helpers';
 
 export const register = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): Promise<void> => {
   try {
     const { email, password, username } = req.body;
