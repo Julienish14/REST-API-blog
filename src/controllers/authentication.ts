@@ -5,7 +5,8 @@ import { authentication, random } from '../helpers';
 
 export const login = async (
   req: express.Request,
-  res: express.Response
+  res: express.Response,
+  next: express.NextFunction
 ): Promise<void> => {
   try {
     const { email, password } = req.body;
@@ -14,7 +15,7 @@ export const login = async (
     }
 
     const user = await getUserByEmail(email).select(
-      '+authentication.salt + authentication.password'
+      'email username authentication.salt authentication.password'
     );
 
     if (!user) {
@@ -38,7 +39,8 @@ export const login = async (
       domain: 'localhost',
       path: '/',
     });
-    res.status(200).json(user).end;
+    console.log(user.email);
+    res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
