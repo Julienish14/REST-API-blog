@@ -33,10 +33,10 @@ mongoose.Promise = Promise;
 mongoose
   .connect(MONGO_URL)
   .then(() => {
-    console.log('✅ Connected to MongoDB!');
+    console.log('Connected to MongoDB! ✅ ');
   })
   .catch((error: Error) => {
-    console.log('❌ MongoDB connection error:', error);
+    console.log('MongoDB connection error ❌ :', error);
   });
 
 app.use('/api/v1/', router());
