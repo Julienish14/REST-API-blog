@@ -7,9 +7,7 @@ import { isAuthenticated } from '../middlewares';
 export default (router: express.Router) => {
   router.get(
     '/users',
-    // AsyncHandler(isAuthenticated),
-    // isAuthenticated,
+    AsyncHandler(isAuthenticated),
     AsyncHandler(getAllUsers)
-    // getAllUsers
   );
 };
