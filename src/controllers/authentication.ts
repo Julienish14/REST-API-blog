@@ -39,7 +39,7 @@ export const login = async (
       domain: 'localhost',
       path: '/',
     });
-    console.log(user.email);
+
     res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
