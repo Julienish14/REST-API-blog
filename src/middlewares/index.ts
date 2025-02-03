@@ -1,5 +1,5 @@
 import express from 'express';
-import { get, identity, merge } from 'lodash';
+import { get, merge } from 'lodash';
 
 import { getUserBySessionToken } from '../db/users';
 
