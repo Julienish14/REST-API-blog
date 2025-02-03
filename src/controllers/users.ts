@@ -1,5 +1,10 @@
 import express from 'express';
-import { getUsers } from '../db/users';
+import {
+  getUsers,
+  deleteUserById,
+  updateUserById,
+  getUserById,
+} from '../db/users';
 
 export const getAllUsers = async (
   req: express.Request,
@@ -20,8 +25,37 @@ export const deleteUser = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): Promise<void> => {
+) => {
   try {
+    const { id } = req.params;
+
+    const deletedUser = await deleteUserById(id);
+
+    res.json(deletedUser);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
+
+export const updateUser = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const { username } = req.body;
+    if (!username) {
+      res.sendStatus(400);
+    }
+
+    const user = await getUserById(id);
+
+    user.username = username;
+    await user.save();
+
+    res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
