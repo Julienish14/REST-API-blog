@@ -7,18 +7,16 @@ export const isAuthenticated = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): Promise<void> => {
+) => {
   try {
     const sessionToken = req.cookies['JULISH-AUTH'];
     if (!sessionToken) {
       res.sendStatus(403);
-      return;
     }
     const existingUser = await getUserBySessionToken(sessionToken);
 
     if (!existingUser) {
       res.sendStatus(403);
-      return;
     }
 
     merge(req, { identity: existingUser });
@@ -26,6 +24,5 @@ export const isAuthenticated = async (
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
-    return;
   }
 };

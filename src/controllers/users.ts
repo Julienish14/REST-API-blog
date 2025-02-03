@@ -15,3 +15,15 @@ export const getAllUsers = async (
     res.sendStatus(400);
   }
 };
+
+export const deleteUser = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+): Promise<void> => {
+  try {
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
