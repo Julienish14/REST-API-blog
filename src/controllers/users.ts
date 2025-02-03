@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers } from '../db/users';
+import { getUsers, deleteUserById } from '../db/users';
 
 export const getAllUsers = async (
   req: express.Request,
@@ -20,8 +20,13 @@ export const deleteUser = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): Promise<void> => {
+) => {
   try {
+    const { id } = req.params;
+
+    const deletedUser = await deleteUserById(id);
+
+    res.json(deletedUser);
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
