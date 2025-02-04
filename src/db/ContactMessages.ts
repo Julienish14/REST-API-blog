@@ -10,7 +10,6 @@
 // export const messageModel = mongoose.model('Message', messageSchema);
 
 import mongoose, { Schema, Document } from 'mongoose';
-import { getUserByEmail } from './users';
 
 interface IContactMessages extends Document {
   name: String;
