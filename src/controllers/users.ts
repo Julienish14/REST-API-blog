@@ -1,16 +1,11 @@
 import express from 'express';
-import {
-  getUsers,
-  deleteUserById,
-  updateUserById,
-  getUserById,
-} from '../db/users';
+import { getUsers, deleteUserById, getUserById } from '../db/users';
 
 export const getAllUsers = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
-): Promise<void> => {
+) => {
   try {
     const user = await getUsers();
 
