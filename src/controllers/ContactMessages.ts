@@ -10,7 +10,10 @@ export const submitMessage = async (
   try {
     const newMessage = new ContactMessage({ name, email, message });
     await newMessage.save();
-    res.sendStatus(200).json();
+
+    res
+      .status(201)
+      .json({ message: 'Message submitted successfully!', data: newMessage });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
