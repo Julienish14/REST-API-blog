@@ -30,7 +30,7 @@ export const deleteMessage = async (
       _id: req.params.messageId,
     });
     res
-      .status(201)
+      .status(200)
       .json({ message: 'Message Deleted Successfully!', data: deleteMessage });
   } catch (error) {
     console.log(error);
