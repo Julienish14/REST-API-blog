@@ -40,7 +40,11 @@ export const getOnlyMessage = async (
   next: NextFunction
 ) => {
   try {
-    const onlyOneMessage = await ContactMessage.findById({req.params.messageId});
+    const onlyOneMessage = await ContactMessage.findById({
+      _id: req.params.messageId,
+    });
+
+    res.status(200).json({ message: 'Only one message', data: onlyOneMessage });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
