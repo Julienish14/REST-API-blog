@@ -27,6 +27,7 @@ export const getAllMessage = async (
 ) => {
   try {
     const messages = await ContactMessage.find().sort({ createdAt: -1 });
+    res.status(200).json({ data: messages });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
