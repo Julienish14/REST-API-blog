@@ -26,6 +26,7 @@ export const getAllMessage = async (
   next: express.NextFunction
 ) => {
   try {
+    const messages = await ContactMessage.find().sort({ createdAt: -1 });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
