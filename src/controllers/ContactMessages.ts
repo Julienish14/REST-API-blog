@@ -20,6 +20,18 @@ export const submitMessage = async (
   }
 };
 
+export const getAllMessage = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
+
 export const deleteMessage = async (
   req: express.Request,
   res: express.Response,
