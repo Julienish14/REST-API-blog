@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction } from 'express';
 import ContactMessage from '../db/ContactMessages';
 
 export const submitMessage = async (
@@ -28,6 +28,19 @@ export const getAllMessage = async (
   try {
     const messages = await ContactMessage.find().sort({ createdAt: -1 });
     res.status(200).json({ message: 'All Messages : ', data: messages });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
+
+export const getOnlyMessage = async (
+  req: express.Request,
+  res: express.Response,
+  next: NextFunction
+) => {
+  try {
+    const onlyOneMessage = await ContactMessage.findById({req.params.messageId});
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
