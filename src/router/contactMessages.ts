@@ -12,5 +12,5 @@ export default (router: express.Router) => {
   router.post('/contacts', isAuthenticated, submitMessage);
   router.delete('/contacts/:messageId', isAuthenticated, deleteMessage);
   router.get('/contacts', isAuthenticated, getAllMessage);
-  router.get('/contacts', isAuthenticated, getOnlyOneMessage);
+  router.get('/contacts/:messageId', isAuthenticated, getOnlyOneMessage);
 };
