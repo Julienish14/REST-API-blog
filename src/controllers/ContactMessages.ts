@@ -34,7 +34,7 @@ export const getAllMessage = async (
   }
 };
 
-export const getOnlyMessage = async (
+export const getOnlyOneMessage = async (
   req: express.Request,
   res: express.Response,
   next: NextFunction
