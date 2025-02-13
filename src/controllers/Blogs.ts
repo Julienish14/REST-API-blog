@@ -8,6 +8,7 @@ export const createBlog = async (
   next: express.NextFunction
 ) => {
   try {
+    const { title, body } = req.body;
   } catch (error) {
     console.log(error);
   }
