@@ -1,6 +1,6 @@
 import express from 'express';
 
-import BlogsArticles from 'db/Blogs';
+import BlogsArticles from '../db/Blogs';
 
 export const createBlog = async (
   req: express.Request,
