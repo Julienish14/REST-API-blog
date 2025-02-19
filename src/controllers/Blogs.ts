@@ -11,7 +11,12 @@ export const createBlog = async (
   try {
     const newBlog = new BlogsArticles({ title, body });
     await newBlog.save();
+    res.status(201).json({
+      message: 'New Blog Article created successfully!',
+      data: newBlog,
+    });
   } catch (error) {
     console.log(error);
+    res.sendStatus(400);
   }
 };
