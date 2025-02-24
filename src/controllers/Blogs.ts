@@ -43,6 +43,10 @@ export const getOnePost = async (
   next: express.NextFunction
 ) => {
   try {
+    const GetOnlyOnePost = await BlogsArticles.findById({
+      _id: req.params.postId,
+    });
+    res.status(200).json({ message: 'Get Me one post', data: GetOnlyOnePost });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
