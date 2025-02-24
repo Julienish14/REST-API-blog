@@ -27,10 +27,10 @@ export const getAllPost = async (
   next: express.NextFunction
 ) => {
   try {
-    const GetMeAllPost = await BlogsArticles.find().sort({ createdAt: -1 });
+    const getMeAllPost = await BlogsArticles.find().sort({ createdAt: -1 });
     res
       .status(200)
-      .json({ message: 'All Blog Articles: ', data: GetMeAllPost });
+      .json({ message: 'All Blog Articles: ', data: getMeAllPost });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
@@ -43,10 +43,10 @@ export const getOnePost = async (
   next: express.NextFunction
 ) => {
   try {
-    const GetOnlyOnePost = await BlogsArticles.findById({
+    const getOnlyOnePost = await BlogsArticles.findById({
       _id: req.params.postId,
     });
-    res.status(200).json({ message: 'Get Me one post', data: GetOnlyOnePost });
+    res.status(200).json({ message: 'Get Me one post', data: getOnlyOnePost });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
