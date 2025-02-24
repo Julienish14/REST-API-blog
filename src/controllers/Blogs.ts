@@ -27,6 +27,10 @@ export const getAllPost = async (
   next: express.NextFunction
 ) => {
   try {
+    const GetMeAllPost = await BlogsArticles.find().sort({ createdAt: -1 });
+    res
+      .status(200)
+      .json({ message: 'All Blog Articles: ', data: GetMeAllPost });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
