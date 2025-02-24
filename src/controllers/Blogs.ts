@@ -20,3 +20,35 @@ export const createBlog = async (
     res.sendStatus(400);
   }
 };
+
+export const getAllPost = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const GetMeAllPost = await BlogsArticles.find().sort({ createdAt: -1 });
+    res
+      .status(200)
+      .json({ message: 'All Blog Articles: ', data: GetMeAllPost });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
+
+export const getOnePost = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const GetOnlyOnePost = await BlogsArticles.findById({
+      _id: req.params.postId,
+    });
+    res.status(200).json({ message: 'Get Me one post', data: GetOnlyOnePost });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
