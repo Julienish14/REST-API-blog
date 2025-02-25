@@ -59,6 +59,9 @@ export const deletePost = async (
   next: express.NextFunction
 ) => {
   try {
+    const deletePostByID = await BlogsArticles.deleteOne({
+      _id: req.params.postId,
+    });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
