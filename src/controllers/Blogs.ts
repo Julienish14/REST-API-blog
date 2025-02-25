@@ -52,3 +52,12 @@ export const getOnePost = async (
     res.sendStatus(400);
   }
 };
+
+export const deletePost = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+  } catch (error) {}
+};
