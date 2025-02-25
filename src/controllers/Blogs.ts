@@ -59,5 +59,8 @@ export const deletePost = async (
   next: express.NextFunction
 ) => {
   try {
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
 };
