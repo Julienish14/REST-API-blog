@@ -52,3 +52,22 @@ export const getOnePost = async (
     res.sendStatus(400);
   }
 };
+
+export const deletePost = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const deletePostByID = await BlogsArticles.deleteOne({
+      _id: req.params.postId,
+    });
+
+    res
+      .status(200)
+      .json({ message: 'Article Deleted Successfully!', data: deletePostByID });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
