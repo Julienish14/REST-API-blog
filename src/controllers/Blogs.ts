@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction } from 'express';
 
 import BlogsArticles from '../db/Blogs';
 
@@ -66,6 +66,27 @@ export const deletePost = async (
     res
       .status(200)
       .json({ message: 'Article Deleted Successfully!', data: deletePostByID });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
+
+export const updatePost = async (
+  req: express.Request,
+  res: express.Response,
+  next: NextFunction
+) => {
+  const { title, body } = req.body;
+  try {
+    const updateBlogByID = await BlogsArticles.updateOne({
+      _id: req.params.postId,
+      title,
+      body,
+    });
+    res
+      .status(201)
+      .json({ message: 'Blog update successfully!', data: updateBlogByID });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
