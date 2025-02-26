@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction } from 'express';
 
 import BlogsArticles from '../db/Blogs';
 
@@ -70,4 +70,13 @@ export const deletePost = async (
     console.log(error);
     res.sendStatus(400);
   }
+};
+
+export const updatePost = async (
+  req: express.Request,
+  res: express.Response,
+  next: NextFunction
+) => {
+  try {
+  } catch (error) {}
 };
