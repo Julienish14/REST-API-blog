@@ -77,6 +77,15 @@ export const updatePost = async (
   res: express.Response,
   next: NextFunction
 ) => {
+  const { title, body } = req.body;
   try {
-  } catch (error) {}
+    const updateBlogByID = await BlogsArticles.updateOne({
+      _id: req.params.postId,
+      title,
+      body,
+    });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
 };
