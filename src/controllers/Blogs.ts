@@ -84,6 +84,9 @@ export const updatePost = async (
       title,
       body,
     });
+    res
+      .status(201)
+      .json({ message: 'Blog update successfully!', data: updateBlogByID });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
