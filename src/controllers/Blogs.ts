@@ -8,7 +8,6 @@ export const createBlog = async (
   next: express.NextFunction
 ) => {
   const { title, body } = req.body;
-  const { imageBlog } = req.file ? req.file.path : '';
   try {
     const newBlog = new BlogsArticles({ title, body });
     await newBlog.save();
