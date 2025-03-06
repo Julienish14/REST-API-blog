@@ -38,22 +38,6 @@ export const getAllPost = async (
   }
 };
 
-export const getAllPost = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  try {
-    const getMeAllPost = await BlogsArticles.find().sort({ createdAt: -1 });
-    res
-      .status(200)
-      .json({ message: 'All Blog Articles: ', data: getMeAllPost });
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(400);
-  }
-};
-
 export const getOnePost = async (
   req: express.Request,
   res: express.Response,
