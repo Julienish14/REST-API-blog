@@ -1,15 +1,16 @@
 import express, { NextFunction } from 'express';
-
 import BlogsArticles from '../db/Blogs';
+import { uploadImage } from 'utils/cloudinary';
 
 export const createBlog = async (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  const { title, body } = req.body;
+  const { title, content } = req.body;
+  const imageUrl = req.file ? await uploadImage(req.file) : null;
   try {
-    const newBlog = new BlogsArticles({ title, body });
+    const newBlog = new BlogsArticles({ title, content, imageUrl });
     await newBlog.save();
     res.status(201).json({
       message: 'New Blog Article created successfully!',
@@ -77,13 +78,20 @@ export const updatePost = async (
   res: express.Response,
   next: NextFunction
 ) => {
-  const { title, body } = req.body;
+  const { title, content } = req.body;
+  const imageUrl = req.file ? await uploadImage(req.file) : null;
+
   try {
     const updateBlogByID = await BlogsArticles.updateOne({
       _id: req.params.postId,
       title,
-      body,
+      content,
+      imageUrl,
     });
+    if (!updateBlogByID) {
+      res.status(404).json({ message: 'Blog not found' });
+      return;
+    }
     res
       .status(201)
       .json({ message: 'Blog update successfully!', data: updateBlogByID });
