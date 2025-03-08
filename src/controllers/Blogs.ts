@@ -4,14 +4,14 @@ import { uploadImage } from '../utils/cloudinary';
 
 export const createBlog = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
+  res: express.Response
+  // next: express.NextFunction
+): Promise<void> => {
   const { title, content } = req.body;
   const imageUrl = req.file ? await uploadImage(req.file) : null;
   try {
-    const newBlog = new BlogsArticles({ title, content, imageUrl });
-    await newBlog.save();
+    const newBlog = await BlogsArticles.create({ title, content, imageUrl });
+    // await newBlog.save();
     res.status(201).json({
       message: 'New Blog Article created successfully!',
       data: newBlog,
