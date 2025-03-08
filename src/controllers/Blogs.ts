@@ -1,17 +1,15 @@
-import express, { NextFunction } from 'express';
+import express from 'express';
 import BlogsArticles from '../db/Blogs';
 import { uploadImage } from '../utils/cloudinary';
 
 export const createBlog = async (
   req: express.Request,
   res: express.Response
-  // next: express.NextFunction
 ): Promise<void> => {
   const { title, content } = req.body;
   const imageUrl = req.file ? await uploadImage(req.file) : null;
   try {
     const newBlog = await BlogsArticles.create({ title, content, imageUrl });
-    // await newBlog.save();
     res.status(201).json({
       message: 'New Blog Article created successfully!',
       data: newBlog,
@@ -24,8 +22,7 @@ export const createBlog = async (
 
 export const getAllPost = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ) => {
   try {
     const getMeAllPost = await BlogsArticles.find().sort({ createdAt: -1 });
@@ -40,8 +37,7 @@ export const getAllPost = async (
 
 export const getOnePost = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ) => {
   try {
     const getOnlyOnePost = await BlogsArticles.findById({
@@ -56,8 +52,7 @@ export const getOnePost = async (
 
 export const deletePost = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ) => {
   try {
     const deletePostByID = await BlogsArticles.deleteOne({
@@ -75,19 +70,18 @@ export const deletePost = async (
 
 export const updatePost = async (
   req: express.Request,
-  res: express.Response,
-  next: NextFunction
+  res: express.Response
 ) => {
-  const { title, content } = req.body;
-  const imageUrl = req.file ? await uploadImage(req.file) : null;
-
   try {
-    const updateBlogByID = await BlogsArticles.updateOne({
-      _id: req.params.postId,
-      title,
-      content,
-      imageUrl,
-    });
+    const { postId } = req.params;
+    const { title, content } = req.body;
+    const imageUrl = req.file ? await uploadImage(req.file) : null;
+
+    const updateBlogByID = await BlogsArticles.findByIdAndUpdate(
+      postId,
+      { title, content, imageUrl },
+      { new: true }
+    );
     if (!updateBlogByID) {
       res.status(404).json({ message: 'Blog not found' });
       return;
