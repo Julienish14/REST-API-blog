@@ -1,6 +1,6 @@
 import express, { NextFunction } from 'express';
 import BlogsArticles from '../db/Blogs';
-import { uploadImage } from 'utils/cloudinary';
+import { uploadImage } from '../utils/cloudinary';
 
 export const createBlog = async (
   req: express.Request,
