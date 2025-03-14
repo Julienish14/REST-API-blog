@@ -52,9 +52,9 @@ export const register = async (
   res: express.Response
 ): Promise<void> => {
   try {
-    const { email, password, fullname, username } = req.body;
+    const { email, password, username } = req.body;
 
-    if (!email || !password || !fullname || !username) {
+    if (!email || !password || !username) {
       res.sendStatus(400);
     }
 
@@ -68,7 +68,6 @@ export const register = async (
     const user = await createUser({
       email,
       username,
-
       authentication: {
         salt,
         password: authentication(salt, password),
