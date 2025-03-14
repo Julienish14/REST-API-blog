@@ -5,8 +5,7 @@ import { authentication, random } from '../helpers';
 
 export const login = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): Promise<void> => {
   try {
     const { email, password } = req.body;
@@ -52,22 +51,25 @@ export const register = async (
   res: express.Response
 ): Promise<void> => {
   try {
-    const { email, password, username } = req.body;
+    const { email, password, fullname, username } = req.body;
 
-    if (!email || !password || !username) {
-      res.sendStatus(400);
+    if (!email || !password || !fullname || !username) {
+      res
+        .status(400)
+        .json({ message: 'Enter your email, fullname, username, password' });
     }
 
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
-      res.sendStatus(400);
+      res.status(409).json({ message: `User with this email already exist ` });
     }
 
     const salt = random();
     const user = await createUser({
       email,
       username,
+      fullname,
       authentication: {
         salt,
         password: authentication(salt, password),
