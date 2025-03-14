@@ -68,7 +68,7 @@ export const register = async (
     const user = await createUser({
       email,
       username,
-      fullname,
+
       authentication: {
         salt,
         password: authentication(salt, password),
