@@ -88,8 +88,7 @@ import { authentication, random } from '../helpers';
 
 export const login = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): Promise<void> => {
   try {
     const { email, password } = req.body;
@@ -145,7 +144,8 @@ export const register = async (
 
     if (existingUser) {
       console.log('This user exist');
-      res.sendStatus(400);
+
+      res.status(409).json({ message: `User with this email already exist ` });
     }
 
     const salt = random();
