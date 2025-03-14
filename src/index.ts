@@ -33,7 +33,6 @@ mongoose.Promise = Promise;
 mongoose
   .connect(MONGO_URL)
   .then(() => {
-    console.log('Connected to MongoDB! ✅ ');
     console.log('connected to database: ', mongoose.connection.name);
   })
   .catch((error: Error) => {
