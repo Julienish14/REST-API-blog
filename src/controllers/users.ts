@@ -9,7 +9,11 @@ export const getAllUsers = async (
   try {
     const user = await getUsers();
 
-    res.status(200).json(user);
+    res.status(200).json({
+      message: 'All registered users',
+      count: user.length,
+      data: user,
+    });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
