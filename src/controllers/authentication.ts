@@ -144,6 +144,7 @@ export const register = async (
     const existingUser = await getUserByEmail(email);
 
     if (existingUser) {
+      console.log('This user exist');
       res.sendStatus(400);
     }
 
