@@ -11,7 +11,7 @@ export const getAllUsers = async (
 
     res.status(200).json({
       message: 'All registered users',
-      count: user.length,
+      number: user.length,
       data: user,
     });
   } catch (error) {

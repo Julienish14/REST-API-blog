@@ -14,7 +14,7 @@ export const login = async (
     }
 
     const user = await getUserByEmail(email).select(
-      'email username authentication.salt authentication.password'
+      'fullname email username authentication.salt authentication.password'
     );
 
     if (!user) {
@@ -55,7 +55,7 @@ export const register = async (
 
     if (!email || !password || !fullname || !username) {
       res
-        .status(400)
+        .sendStatus(401)
         .json({ message: 'Enter your email, fullname, username, password' });
     }
 
