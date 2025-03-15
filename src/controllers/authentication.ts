@@ -89,6 +89,8 @@ export const logout = async (
   next: express.NextFunction
 ) => {
   try {
+    res.clearCookie('');
+    res.status(200).json({ message: 'Logged out successfully!' });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
