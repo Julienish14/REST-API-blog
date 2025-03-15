@@ -82,3 +82,15 @@ export const register = async (
     res.sendStatus(400);
   }
 };
+
+export const logout = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
