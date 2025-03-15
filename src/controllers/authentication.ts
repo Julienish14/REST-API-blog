@@ -14,7 +14,7 @@ export const login = async (
     }
 
     const user = await getUserByEmail(email).select(
-      'email username authentication.salt authentication.password'
+      'fullname email username authentication.salt authentication.password'
     );
 
     if (!user) {
@@ -55,7 +55,7 @@ export const register = async (
 
     if (!email || !password || !fullname || !username) {
       res
-        .status(400)
+        .sendStatus(401)
         .json({ message: 'Enter your email, fullname, username, password' });
     }
 
@@ -77,6 +77,20 @@ export const register = async (
     });
 
     res.status(200).json(user).end();
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
+  }
+};
+
+export const logout = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    res.clearCookie('JULISH-AUTH');
+    res.status(200).json({ message: 'Logged out successfully!' });
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
