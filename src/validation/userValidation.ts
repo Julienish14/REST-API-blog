@@ -8,15 +8,20 @@ export const validateUser = [
     .isAlphanumeric()
     .withMessage('Fullname must conatin only letters'),
 
-  body('email')
-    .trim()
-    .isEmail()
-    .withMessage('Please enter a valid email address'),
-
   body('username')
     .trim()
     .isLength({ min: 6 })
     .withMessage('Username must be at least 3 characters long')
     .isAlphanumeric()
     .withMessage('Username must contain only letter and number'),
+
+  body('email')
+    .trim()
+    .isEmail()
+    .withMessage('Please enter a valid email address'),
+
+  body('password')
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage('Password must be at least 6 characters long'),
 ];
