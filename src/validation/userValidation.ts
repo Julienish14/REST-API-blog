@@ -7,4 +7,9 @@ export const validateUser = [
     .withMessage('Fullname must be at least 4 characters long')
     .isAlphanumeric()
     .withMessage('Fullname must conatin only letters'),
+
+  body('email')
+    .trim()
+    .isEmail()
+    .withMessage('Please enter a valid email address'),
 ];
