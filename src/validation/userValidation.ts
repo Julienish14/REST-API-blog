@@ -1,5 +1,5 @@
 import { body, validationResult } from 'express-validator';
-import express, { NextFunction } from 'express';
+import express from 'express';
 
 export const validateUser = [
   body('fullname')
@@ -26,10 +26,14 @@ export const validateUser = [
     .isLength({ min: 6 })
     .withMessage('Password must be at least 6 characters long'),
 
-  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<void> => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      res.status(400).json({ errors: errors.array() });
     }
     next();
   },
