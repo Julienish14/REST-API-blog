@@ -1,6 +1,6 @@
 import express from 'express';
 import { login, logout, register } from '../controllers/authentication';
-import { validateUser } from 'validation/userValidation';
+import { validateUser } from '../validation/userValidation';
 
 export default (router: express.Router) => {
   router.get('/', (req, res) => {
