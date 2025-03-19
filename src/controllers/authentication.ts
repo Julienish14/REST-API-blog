@@ -79,7 +79,7 @@ export const register = async (
     res.status(200).json(user).end();
   } catch (error) {
     console.log(error);
-    res.sendStatus(400);
+    res.sendStatus(500);
   }
 };
 
