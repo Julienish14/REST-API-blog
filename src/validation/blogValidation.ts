@@ -10,6 +10,10 @@ export const validateBlog = [
     .trim()
     .isLength({ min: 10 })
     .withMessage('Please Enter the content of the article'),
+  body('blogImage')
+    .optional()
+    .isString()
+    .withMessage('Image must be a valid string'),
   async (
     req: express.Request,
     res: express.Response,
