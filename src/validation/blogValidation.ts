@@ -2,8 +2,14 @@ import { body, validationResult } from 'express-validator';
 import express from 'express';
 
 export const validateBlog = [
-  body('title').trim().withMessage('Please Enter the title of this article'),
-  body('content').trim().withMessage('Please Enter the content of the article'),
+  body('title')
+    .trim()
+    .isLength({ min: 5 })
+    .withMessage('Please Enter the title of this article'),
+  body('content')
+    .trim()
+    .isLength({ min: 10 })
+    .withMessage('Please Enter the content of the article'),
   async (
     req: express.Request,
     res: express.Response,
