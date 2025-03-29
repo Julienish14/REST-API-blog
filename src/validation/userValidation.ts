@@ -4,7 +4,7 @@ import express from 'express';
 export const validateUser = [
   body('fullname')
     .trim()
-    .isLength({ min: 8 })
+    .isLength({ min: 4 })
     .withMessage('Fullname must be at least 8 characters long')
     .isAlphanumeric()
     .withMessage('Fullname must conatin only letters'),
