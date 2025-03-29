@@ -48,7 +48,8 @@ export const login = async (
 
 export const register = async (
   req: express.Request,
-  res: express.Response
+  res: express.Response,
+  next: express.NextFunction
 ): Promise<void> => {
   try {
     const { email, password, fullname, username } = req.body;
@@ -63,6 +64,7 @@ export const register = async (
 
     if (existingUser) {
       res.status(409).json({ message: `User with this email already exist ` });
+      next();
     }
 
     const salt = random();
