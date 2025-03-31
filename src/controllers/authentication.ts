@@ -8,7 +8,6 @@ import { validationResult } from 'express-validator';
 export const register = async (
   req: express.Request,
   res: express.Response
-  // next: express.NextFunction
 ): Promise<Response> => {
   try {
     const errors = validationResult(req);
