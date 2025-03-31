@@ -1,58 +1,15 @@
-import express from 'express';
-import { Response, Request } from 'express';
+import express, { Response, Request, NextFunction } from 'express';
+// import express, { Response, Request } from 'express';
 
 import { getUserByEmail, createUser } from '../db/users';
 import { authentication, random } from '../helpers';
 import { validationResult } from 'express-validator';
 
-export const login = async (
-  req: express.Request,
-  res: express.Response
-): Promise<void> => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      res.sendStatus(400);
-    }
-
-    const user = await getUserByEmail(email).select(
-      'fullname email username authentication.salt authentication.password'
-    );
-
-    if (!user) {
-      res.sendStatus(400);
-    }
-
-    const expectedHash = authentication(user.authentication.salt, password);
-
-    if (user.authentication.password !== expectedHash) {
-      res.sendStatus(403);
-    }
-
-    const salt = random();
-    user.authentication.sessionToken = authentication(
-      salt,
-      user._id.toString()
-    );
-    await user.save();
-
-    res.cookie('JULISH-AUTH', user.authentication.sessionToken, {
-      domain: 'localhost',
-      path: '/',
-    });
-
-    res.status(200).json(user).end();
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(400);
-  }
-};
-
 export const register = async (
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-): Promise<void | Response> => {
+  res: express.Response
+  // next: express.NextFunction
+): Promise<Response> => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -102,6 +59,49 @@ export const register = async (
       success: false,
       message: 'Internal server error',
     });
+  }
+};
+
+export const login = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res.sendStatus(400);
+    }
+
+    const user = await getUserByEmail(email).select(
+      'fullname email username authentication.salt authentication.password'
+    );
+
+    if (!user) {
+      res.sendStatus(400);
+    }
+
+    const expectedHash = authentication(user.authentication.salt, password);
+
+    if (user.authentication.password !== expectedHash) {
+      res.sendStatus(403);
+    }
+
+    const salt = random();
+    user.authentication.sessionToken = authentication(
+      salt,
+      user._id.toString()
+    );
+    await user.save();
+
+    res.cookie('JULISH-AUTH', user.authentication.sessionToken, {
+      domain: 'localhost',
+      path: '/',
+    });
+
+    res.status(200).json(user).end();
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400);
   }
 };
 

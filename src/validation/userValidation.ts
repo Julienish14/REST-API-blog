@@ -39,11 +39,14 @@
 //   },
 // ];
 
-import { body, validationResult } from 'express-validator';
+import { body, validationResult, ValidationChain } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
-import { UserModel } from '../db/users'; // Assuming you have a User model/type
+import { UserModel } from '../db/users';
 
-export const validateUser = [
+export const validateUser: (
+  | ValidationChain
+  | ((req: Request, res: Response, next: NextFunction) => void)
+)[] = [
   body('fullname')
     .trim()
     .notEmpty()
