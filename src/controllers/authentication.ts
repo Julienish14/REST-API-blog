@@ -45,12 +45,10 @@ export const register = async (
       },
     });
 
-    const userResponse = { ...(user as any).toObject() };
-    delete userResponse.authentication;
-
     return res.status(201).json({
       success: true,
-      data: userResponse,
+      message: 'Registered successfully!',
+      data: user,
     });
   } catch (error) {
     console.error('Registration error:', error);
