@@ -97,19 +97,18 @@ export const login = async (
   } catch (error) {
     console.log(error);
     res.sendStatus(400);
-  }
-};
-
-export const logout = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  try {
-    res.clearCookie('JULISH-AUTH');
-    res.status(200).json({ message: 'Logged out successfully!' });
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(400);
+    export const logout = async (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      try {
+        res.clearCookie('JULISH-AUTH');
+        res.status(200).json({ message: 'Logged out successfully!' });
+      } catch (error) {
+        console.log(error);
+        res.sendStatus(400);
+      }
+    };
   }
 };
