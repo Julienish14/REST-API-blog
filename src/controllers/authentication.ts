@@ -1,6 +1,4 @@
 import express, { Response, Request, NextFunction } from 'express';
-// import express, { Response, Request } from 'express';
-
 import { getUserByEmail, createUser } from '../db/users';
 import { authentication, random } from '../helpers';
 import { validationResult } from 'express-validator';
@@ -101,43 +99,6 @@ export const login = async (
     res.sendStatus(400);
   }
 };
-
-// export const register = async (
-//   req: express.Request,
-//   res: express.Response
-// ): Promise<void> => {
-//   try {
-//     const { email, password, fullname, username } = req.body;
-
-//     if (!email || !password || !fullname || !username) {
-//       res
-//         .sendStatus(401)
-//         .json({ message: 'Enter your email, fullname, username, password' });
-//     }
-
-//     const existingUser = await getUserByEmail(email);
-
-//     if (existingUser) {
-//       res.status(409).json({ message: `User with this email already exist ` });
-//     }
-
-//     const salt = random();
-//     const user = await createUser({
-//       email,
-//       username,
-//       fullname,
-//       authentication: {
-//         salt,
-//         password: authentication(salt, password),
-//       },
-//     });
-
-//     res.status(200).json(user).end();
-//   } catch (error) {
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// };
 
 export const logout = async (
   req: express.Request,
