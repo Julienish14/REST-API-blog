@@ -1,22 +1,56 @@
-import express from 'express';
+import express, { Response, Request } from 'express';
 import BlogsArticles from '../db/Blogs';
 import { uploadImage } from '../utils/cloudinary';
+import { validationResult } from 'express-validator';
 
 export const createBlog = async (
-  req: express.Request,
-  res: express.Response
-): Promise<void> => {
-  const { title, content } = req.body;
-  const imageUrl = req.file ? await uploadImage(req.file) : null;
+  req: Request,
+  res: Response
+): Promise<Response> => {
   try {
-    const newBlog = await BlogsArticles.create({ title, content, imageUrl });
-    res.status(201).json({
-      message: 'New Blog Article created successfully!',
-      data: newBlog,
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { title, content } = req.body;
+
+    let imageUrl = null;
+    if (req.file) {
+      try {
+        imageUrl = await uploadImage(req.file);
+      } catch (uploadError) {
+        console.error('Image upload failed:', uploadError);
+        return res.status(500).json({
+          success: false,
+          message: 'Failed to upload image',
+        });
+      }
+    }
+
+    const newBlog = await BlogsArticles.create({
+      title,
+      content,
+      imageUrl,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Blog created successfully',
+      data: {
+        id: newBlog._id,
+        title: newBlog.title,
+        excerpt: newBlog.content.substring(0, 100) + '...',
+        imageUrl: newBlog.imageUrl,
+        createdAt: newBlog.createdAt,
+      },
     });
   } catch (error) {
-    console.log(error);
-    res.sendStatus(400);
+    console.error('Blog creation error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
   }
 };
 
