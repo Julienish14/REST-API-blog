@@ -29,10 +29,10 @@ export const validateBlog: (
     .withMessage('Image must be a valid URL')
     .trim(),
 
-  body('tags')
-    .optional()
-    .isArray({ min: 1, max: 5 })
-    .withMessage('You can add 1-5 tags'),
+  // body('tags')
+  //   .optional()
+  //   .isArray({ min: 1, max: 5 })
+  //   .withMessage('You can add 1-5 tags'),
 
   (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
