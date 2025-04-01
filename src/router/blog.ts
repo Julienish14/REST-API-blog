@@ -27,6 +27,7 @@ export default (router: express.Router) => {
     '/blogs/:postId',
     isAuthenticated,
     upload.single('image'),
+    ...validateBlog,
     updatePost
   );
 };
