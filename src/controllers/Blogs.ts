@@ -1,6 +1,61 @@
 import express, { Response, Request } from 'express';
 import BlogsArticles from '../db/Blogs';
 import { uploadImage } from '../utils/cloudinary';
+import { validationResult } from 'express-validator';
+
+export const createBlog = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { title, content, tags } = req.body;
+
+    let imageUrl = null;
+    if (req.file) {
+      try {
+        imageUrl = await uploadImage(req.file);
+      } catch (uploadError) {
+        console.error('Image upload failed:', uploadError);
+        return res.status(500).json({
+          success: false,
+          message: 'Failed to upload image',
+        });
+      }
+    }
+
+    const newBlog = await BlogsArticles.create({
+      title,
+      content,
+      imageUrl,
+      tags: tags || [],
+      author: req.user?._id,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Blog created successfully',
+      data: {
+        id: newBlog._id,
+        title: newBlog.title,
+        excerpt: newBlog.content.substring(0, 100) + '...',
+        imageUrl: newBlog.imageUrl,
+        createdAt: newBlog.createdAt,
+      },
+    });
+  } catch (error) {
+    console.error('Blog creation error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
+    });
+  }
+};
 
 // export const createBlog = async (
 //   req: express.Request,
