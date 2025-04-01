@@ -1,4 +1,4 @@
-import express, { Response, Request, NextFunction, Router } from 'express';
+import express, { Response, Request, NextFunction } from 'express';
 
 import { login, logout, register } from '../controllers/authentication';
 import { validateUser } from '../validation/userValidation';

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response, Request, NextFunction } from 'express';
 import {
   createBlog,
   deletePost,
@@ -15,8 +15,10 @@ export default (router: express.Router) => {
     '/blogs',
     isAuthenticated,
     upload.single('image'),
-    validateBlog,
-    createBlog
+    ...validateBlog,
+    (req: Request, res: Response, next: NextFunction) => {
+      createBlog(req, res).catch(next);
+    }
   );
   router.get('/blogs', isAuthenticated, getAllPost);
   router.get('/blogs/:postId', isAuthenticated, getOnePost);

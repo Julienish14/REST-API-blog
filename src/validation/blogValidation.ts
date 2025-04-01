@@ -1,7 +1,10 @@
-import { body, validationResult } from 'express-validator';
+import { body, validationResult, ValidationChain } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
-export const validateBlog = [
+export const validateBlog: (
+  | ValidationChain
+  | ((req: Request, res: Response, next: NextFunction) => void)
+)[] = [
   body('title')
     .trim()
     .notEmpty()
@@ -37,7 +40,7 @@ export const validateBlog = [
       return res.status(400).json({
         success: false,
         errors: errors.array().map(err => ({
-          field: err.param,
+          // field: err.param,
           message: err.msg,
         })),
       });

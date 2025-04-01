@@ -32,8 +32,8 @@ export const createBlog = async (
       title,
       content,
       imageUrl,
-      tags: tags || [],
-      author: req.user?._id,
+      // tags: tags || [],
+      // author: req.user?._id,
     });
 
     return res.status(201).json({
@@ -52,7 +52,6 @@ export const createBlog = async (
     return res.status(500).json({
       success: false,
       message: 'Internal server error',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
     });
   }
 };
