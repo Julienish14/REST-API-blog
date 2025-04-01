@@ -61,7 +61,7 @@ export const validateUser: (
       return res.status(400).json({
         success: false,
         errors: errors.array().map(err => ({
-          // param: err.param,
+          param: (err as any).param,
           message: err.msg,
         })),
       });

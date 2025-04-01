@@ -13,7 +13,7 @@ export const createBlog = async (
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, content, tags } = req.body;
+    const { title, content } = req.body;
 
     let imageUrl = null;
     if (req.file) {
@@ -32,8 +32,6 @@ export const createBlog = async (
       title,
       content,
       imageUrl,
-      // tags: tags || [],
-      // author: req.user?._id,
     });
 
     return res.status(201).json({
@@ -55,24 +53,6 @@ export const createBlog = async (
     });
   }
 };
-
-// export const createBlog = async (
-//   req: express.Request,
-//   res: express.Response
-// ): Promise<void> => {
-//   const { title, content } = req.body;
-//   const imageUrl = req.file ? await uploadImage(req.file) : null;
-//   try {
-//     const newBlog = await BlogsArticles.create({ title, content, imageUrl });
-//     res.status(201).json({
-//       message: 'New Blog Article created successfully!',
-//       data: newBlog,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.sendStatus(400);
-//   }
-// };
 
 export const getAllPost = async (
   req: express.Request,

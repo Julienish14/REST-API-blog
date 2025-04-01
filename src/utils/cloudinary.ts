@@ -10,7 +10,7 @@ cloudinary.config({
 export const uploadImage = async (
   file: Express.Multer.File
 ): Promise<string> => {
-  console.log('File object:', file);
+  // console.log('File object:', file);
 
   if (!file.buffer) {
     throw new Error('File buffer is missing.');
