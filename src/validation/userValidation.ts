@@ -51,6 +51,21 @@ export const validateUser: (
     .withMessage('Password is required!')
     .isLength({ min: 6 })
     .withMessage('Password must be at least 6 characters long')
+    .matches(/[a-z]/)
+    .withMessage('Password must contain at least one lowercase letter')
+    .matches(/[A-Z]/)
+    .withMessage('Password must contain at least one uppercase letter')
+    .matches(/\d/)
+    .withMessage('Password must contain at least one number'),
+
+  //That works too but let's use the up one.
+
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('Password is required!')
+    .isLength({ min: 6 })
+    .withMessage('Password must be at least 6 characters long')
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/)
     .withMessage(
       'Password must contain at least one uppercase letter, one lowercase letter, and one number'
